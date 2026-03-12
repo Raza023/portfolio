@@ -129,6 +129,38 @@
             width: 100%;
         }
 
+        /* Scroll to Top Button */
+        #scroll-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            z-index: 999;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #9d4edd, #4ea8de);
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            border: none;
+            box-shadow: 0 4px 20px rgba(157, 78, 221, 0.45);
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.35s ease, transform 0.35s ease, box-shadow 0.3s ease;
+            pointer-events: none;
+        }
+        #scroll-to-top.visible {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: auto;
+        }
+        #scroll-to-top:hover {
+            box-shadow: 0 6px 28px rgba(157, 78, 221, 0.65);
+            transform: translateY(-3px);
+        }
+
         /* Light Mode Styles */
         body.light-mode {
             --bg-color: #f8fafc;
@@ -570,6 +602,11 @@
         </div>
     </section>
 
+    <!-- Scroll To Top Button -->
+    <button id="scroll-to-top" aria-label="Scroll to top">
+        <i data-feather="chevron-up" class="w-5 h-5"></i>
+    </button>
+
     <!-- Footer / Contact -->
     <footer id="contact" class="mt-24 border-t border-white/10 bg-black/50 backdrop-blur-lg relative overflow-hidden">
         <div
@@ -678,6 +715,19 @@
         
         document.getElementById('theme-toggle-desktop').addEventListener('click', toggleTheme);
         document.getElementById('theme-toggle-mobile').addEventListener('click', toggleTheme);
+
+        // Scroll to Top Logic
+        const scrollToTopBtn = document.getElementById('scroll-to-top');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                scrollToTopBtn.classList.add('visible');
+            } else {
+                scrollToTopBtn.classList.remove('visible');
+            }
+        });
+        scrollToTopBtn.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
     </script>
 </body>
 
